@@ -1,0 +1,41 @@
+﻿@using EPiServer.Framework.Web.Resources
+@using EPiServer.Shell.Navigation
+@using EPiServer.Shell
+@using EPiServer.Web.Mvc.Html
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    @Html.Raw(ClientResources.RenderResources("ShellCore"))
+    @Html.Raw(ClientResources.RenderResources("ShellWidgets"))
+    @Html.Raw(ClientResources.RenderResources("ShellCoreLightTheme"))
+    @Html.Raw(ClientResources.RenderResources("Navigation"))
+    @Html.Raw(ClientResources.RenderResources("DojoDashboardCompatibility", new[] { ClientResourceType.Style }))
+
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/OverviewDashboard/Core/ClientResources/css/Main.css" rel="stylesheet"/>
+</head>
+<body>
+
+    @Html.Raw(Html.ShellInitializationScript())
+    @Html.Raw(Html.GlobalMenu())
+    <div>
+        @RenderBody()
+    </div>
+    <script type="text/javascript">
+        epi.routes.init("");
+        epi.routes.registerRoute("/EPiServer/{moduleArea}/{controller}/{action}/{id}", { "action": "index", "id": "", "moduleArea": "ImageVault.AddOn.EPiCMS7" });
+        epi.routes.registerRoute("/modules/{moduleArea}/{controller}/{action}/{id}", { "action": "index", "id": "", "moduleArea": "App" });
+        epi.routes.registerRoute("/EPiServer/{moduleArea}/{controller}/{action}/{id}", { "controller": "Home", "action": "Index", "id": "", "moduleArea": "CMS" });
+        epi.routes.registerRoute("/EPiServer/AddOns/{controller}/{action}", { "moduleArea": "EPiServer.Packaging.UI", "controller": "AddOns", "action": "Index" });
+        epi.routes.registerRoute("/EPiServer/{moduleArea}/{controller}/{action}/{id}", { "moduleArea": "Shell", "controller": "Dashboard", "action": "Index", "id": "" });
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" type="text/javascript"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="~/OverviewDashboard/Core/ClientResources/js/Main.js" type="text/javascript"></script>
+</body>
+</html>

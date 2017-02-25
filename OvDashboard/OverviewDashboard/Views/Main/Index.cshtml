@@ -1,0 +1,33 @@
+﻿@{
+    Layout = "~/OverviewDashboard/Views/Shared/Layouts/_OverviewLayout.cshtml";
+}
+
+@model MainViewModel
+@using Nergard.Epi.Tools.OverviewDashboard.Models.ViewModels
+
+@{int i = 0;}
+<div id="container">
+    <ul class="nav nav-pills nav-stacked col-md-3">
+        @foreach (var pin in Model.MenuPins)
+        {
+            <li class="@(i==0 ? "active" : "")"><a href="#@pin.ID@i.ToString()" data-toggle="pill"><span class="badge pull-right">@pin.Badge</span>@pin.Heading</a></li>
+            i++; 
+        }
+    </ul>
+
+    @{ i = 0;}
+    <div class="tab-content col-md-9">
+        @foreach (var pin in Model.MenuPins)
+            {
+            <div id="@pin.ID@i.ToString()" class="tab-pane  @(i==0 ? "active" : "")">
+                <div class="row content">
+                    @foreach (var data in pin.Data)
+                    {
+                      @Html.Partial("~/OverviewDashboard/Views/Shared/" + data.RenderType + ".cshtml" , data.Data);
+                    }
+                </div>
+            </div>
+            i++;
+        }
+    </div>
+</div>
